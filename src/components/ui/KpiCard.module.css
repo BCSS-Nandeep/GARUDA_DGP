@@ -1,0 +1,147 @@
+.card {
+  position: relative;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 18px 20px 20px;
+  min-height: 158px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-base) var(--ease),
+    background var(--dur-base) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--accent-cyan);
+  background: #08243c;
+  box-shadow: 0 0 0 1px rgba(0, 212, 255, 0.25), 0 8px 28px rgba(0, 212, 255, 0.12);
+}
+
+/* Bottom accent line — a real element (not ::after) so GSAP can reveal it. */
+.accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
+.info .accent {
+  background: var(--info);
+}
+.success .accent {
+  background: var(--success);
+}
+.warning .accent {
+  background: var(--warning);
+}
+.danger .accent {
+  background: var(--danger);
+}
+.ai .accent {
+  background: var(--ai);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.value {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.info .value {
+  color: var(--accent-cyan);
+}
+.success .value {
+  color: var(--success);
+}
+.warning .value {
+  color: var(--warning);
+}
+.danger .value {
+  color: var(--danger);
+}
+.ai .value {
+  color: var(--ai);
+}
+
+.total {
+  font-size: var(--fs-base);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.delta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  margin-top: 6px;
+  color: var(--text-muted);
+}
+
+.delta.up {
+  color: var(--success);
+}
+.delta.down {
+  color: var(--danger);
+}
+
+.miniChart {
+  height: 46px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.bar {
+  flex: 1;
+  background: rgba(0, 212, 255, 0.2);
+  border-top: 1px solid var(--accent-cyan);
+  min-height: 2px;
+  transform-origin: bottom;
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.card:hover .bar {
+  background: rgba(0, 212, 255, 0.32);
+}
+
+.barHighlight {
+  background: rgba(0, 212, 255, 0.5);
+  border-top-color: var(--success);
+}
+
+@media (max-width: 1365px) {
+  .card {
+    min-height: 146px;
+    padding: 16px 16px 18px;
+  }
+
+  .value {
+    font-size: 30px;
+  }
+
+  .miniChart {
+    height: 38px;
+  }
+}
+
+@media (max-width: 767px) {
+  .value {
+    font-size: 28px;
+  }
+}

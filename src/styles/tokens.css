@@ -1,0 +1,102 @@
+/* GARUDA design tokens — HUD/command-terminal theme, matching GARUDA_UI.html */
+:root {
+  /* Surfaces */
+  --bg-app: #020c14;
+  --bg-primary: #020c14;
+  --bg-secondary: #030f1a;
+  --bg-panel: #051525;
+  --bg-elevated: #071a2e;
+  --bg-hover: rgba(0, 212, 255, 0.05);
+  --bg-input: #020c14;
+  --bg-header: rgba(2, 12, 20, 0.95);
+
+  /* Borders */
+  --border: rgba(0, 136, 204, 0.15);
+  --border-strong: rgba(0, 212, 255, 0.25);
+  --border-focus: #00d4ff;
+
+  /* Text */
+  --text-primary: #e8f4ff;
+  --text-secondary: #7aafc8;
+  --text-muted: #3a6080;
+  --text-inverse: #020c14;
+
+  /* Brand / accents */
+  --accent-cyan: #00d4ff;
+  --accent-cyan-dim: rgba(0, 212, 255, 0.08);
+  --accent-cyan-strong: #33ddff;
+  --accent-blue: #0088cc;
+
+  /* Status */
+  --success: #00ff9d;
+  --success-dim: rgba(0, 255, 157, 0.1);
+  --warning: #f0a500;
+  --warning-dim: rgba(240, 165, 0, 0.1);
+  --danger: #ff3b5c;
+  --danger-strong: #ff3b5c;
+  --danger-dim: rgba(255, 59, 92, 0.1);
+  --info: #00d4ff;
+  --info-dim: rgba(0, 212, 255, 0.1);
+  --ai: #a855f7;
+  --ai-dim: rgba(168, 85, 247, 0.1);
+
+  /* Severity (alerts) */
+  --sev-critical: #ff3b5c;
+  --sev-high: #ff6b2b;
+  --sev-medium: #f0a500;
+  --sev-info: #00d4ff;
+
+  /* Typography */
+  --font-sans: "Exo 2", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Rajdhani", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Share Tech Mono", "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --fs-xs: 0.6875rem;
+  --fs-sm: 0.8125rem;
+  --fs-base: 0.9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+
+  /* Spacing */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+
+  /* Radii — the reference theme is entirely sharp-edged */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-full: 0px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.55);
+  --shadow-glow-cyan: 0 0 0 1px rgba(0, 212, 255, 0.35), 0 0 20px rgba(0, 212, 255, 0.12);
+
+  /* Layout */
+  --header-h: 64px;
+  --ticker-h: 28px;
+  --sidebar-w: 200px;
+  --sidebar-w-collapsed: 64px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+
+  --z-header: 100;
+  --z-sidebar: 90;
+  --z-dropdown: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-tooltip: 500;
+}

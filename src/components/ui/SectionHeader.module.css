@@ -1,0 +1,40 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--border);
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.icon {
+  color: var(--accent-cyan);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.description {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}

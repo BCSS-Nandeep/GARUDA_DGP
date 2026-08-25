@@ -1,0 +1,36 @@
+.shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-app);
+  overflow-x: hidden;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+.contentInner {
+  padding: var(--sp-5);
+}
+
+@media (max-width: 1023px) {
+  .contentInner {
+    padding: var(--sp-4);
+  }
+}
+
+@media (max-width: 599px) {
+  .contentInner {
+    padding: var(--sp-3);
+  }
+}

@@ -1,0 +1,120 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sm {
+  padding: 5px 10px;
+  font-size: 10px;
+}
+
+.md {
+  padding: 8px 16px;
+  font-size: 11px;
+}
+
+.lg {
+  padding: 11px 20px;
+  font-size: 12px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.primary {
+  background: var(--accent-cyan);
+  color: var(--text-inverse);
+  border-color: var(--accent-cyan);
+}
+.primary:hover:not(:disabled) {
+  background: var(--accent-cyan-strong);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+.secondary:hover:not(:disabled) {
+  background: rgba(0, 212, 255, 0.1);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+.ghost:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--accent-cyan);
+}
+
+.outline {
+  background: transparent;
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+.outline:hover:not(:disabled) {
+  background: var(--accent-cyan-dim);
+}
+
+.danger {
+  background: transparent;
+  color: var(--danger);
+  border-color: var(--danger);
+}
+.danger:hover:not(:disabled) {
+  background: rgba(255, 59, 92, 0.1);
+}
+
+.gold {
+  background: transparent;
+  color: var(--warning);
+  border-color: var(--warning);
+}
+.gold:hover:not(:disabled) {
+  background: rgba(240, 165, 0, 0.1);
+}
+
+.green {
+  background: transparent;
+  color: var(--success);
+  border-color: var(--success);
+}
+.green:hover:not(:disabled) {
+  background: rgba(0, 255, 157, 0.1);
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

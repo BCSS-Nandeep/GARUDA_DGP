@@ -1,0 +1,29 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.crumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.link {
+  color: var(--text-muted);
+}
+
+.link:hover {
+  color: var(--accent-cyan);
+}
+
+.current {
+  color: var(--text-muted);
+}
+
+.sep {
+  color: var(--text-muted);
+  opacity: 0.6;
+}

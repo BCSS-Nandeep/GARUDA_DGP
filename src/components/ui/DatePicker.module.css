@@ -1,0 +1,38 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.inputWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.input {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 7px 10px 7px 30px;
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  color-scheme: dark;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+}

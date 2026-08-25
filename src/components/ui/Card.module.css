@@ -1,0 +1,30 @@
+.card {
+  position: relative;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-strong);
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  opacity: 0.5;
+}
+
+.padded {
+  padding: var(--sp-5);
+}
+
+.hoverable {
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+.hoverable:hover {
+  border-color: var(--accent-cyan);
+}

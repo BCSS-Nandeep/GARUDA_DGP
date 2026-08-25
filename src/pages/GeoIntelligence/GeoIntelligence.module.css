@@ -1,0 +1,392 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.geoGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+@media (max-width: 1279px) {
+  .geoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.geoMainCol {
+  min-width: 0;
+}
+
+.geoSideCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.fenceStatusList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.fenceStatusItem {
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.fenceStatusItem:last-child {
+  border-bottom: none;
+}
+
+.fenceStatusTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.fenceStatusName {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.fenceStatusDetail {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.mapStage {
+  position: relative;
+  height: 600px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.mapWrap {
+  position: absolute;
+  inset: 0;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-secondary);
+}
+
+.pickMode .map {
+  cursor: crosshair;
+}
+
+/* Layer panel */
+.layerPanel {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  z-index: 500;
+  background: rgba(14, 23, 38, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3);
+  min-width: 168px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.layerHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.layerRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 4px 2px;
+  cursor: pointer;
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.layerRow input {
+  accent-color: var(--accent-cyan);
+}
+
+.layerDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.layerLabel {
+  white-space: nowrap;
+}
+
+/* Workflow panel */
+.workflowPanel {
+  position: absolute;
+  top: var(--sp-3);
+  left: var(--sp-3);
+  z-index: 500;
+  width: 300px;
+  background: rgba(14, 23, 38, 0.96);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.workflowHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.workflowTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.workflowClose {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.stepDots {
+  display: flex;
+  gap: 4px;
+}
+
+.stepDot {
+  flex: 1;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--bg-elevated);
+}
+
+.stepDotDone {
+  background: var(--accent-cyan);
+}
+
+.stepDotActive {
+  background: var(--accent-cyan-strong);
+}
+
+.stepLabel {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.stepBody {
+  min-height: 100px;
+}
+
+.stepHint {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-3);
+  line-height: 1.5;
+}
+
+.coordChip {
+  margin-top: var(--sp-2);
+  padding: 6px 10px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--accent-cyan-strong);
+  text-align: center;
+}
+
+.entityList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.entityOption {
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  text-align: left;
+  cursor: pointer;
+}
+
+.entityOptionActive {
+  border-color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
+  color: var(--accent-cyan-strong);
+}
+
+.radiusRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-2);
+}
+
+.radiusValue {
+  font-family: var(--font-mono);
+  color: var(--accent-cyan-strong);
+  font-weight: 700;
+}
+
+.radiusSlider {
+  width: 100%;
+  accent-color: var(--accent-cyan);
+}
+
+.purposeInput {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-2);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  resize: vertical;
+}
+
+.purposeInput:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+}
+
+.reviewList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reviewRow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  font-size: var(--fs-xs);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.reviewRow span:first-child {
+  color: var(--text-muted);
+}
+
+.reviewRow span:last-child {
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.workflowFooter {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--border);
+}
+
+/* Events */
+.eventsSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.eventsTitle {
+  font-size: var(--fs-md);
+  font-weight: 600;
+}
+
+.eventList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+}
+
+@media (max-width: 1279px) {
+  .eventList {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eventCard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.eventTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eventTime {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.eventBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.eventRow {
+  display: flex;
+  gap: var(--sp-2);
+  font-size: var(--fs-xs);
+}
+
+.eventLabel {
+  color: var(--text-muted);
+  min-width: 64px;
+}
+
+.eventActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--border);
+}

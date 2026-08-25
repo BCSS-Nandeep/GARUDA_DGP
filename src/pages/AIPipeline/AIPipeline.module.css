@@ -1,0 +1,178 @@
+.lowerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+@media (max-width: 1279px) {
+  .lowerGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stackWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.stackLabel {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.stackBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.automationList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.automationRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pipelineRow {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  padding-bottom: var(--sp-2);
+  gap: 4px;
+}
+
+.pipelineStep {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.arrow {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin: 0 2px;
+}
+
+.stageCard {
+  width: 150px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stageCard.warning {
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
+.stageLabel {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.stageMeta {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.stageStats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--success);
+  font-family: var(--font-mono);
+}
+
+.stageFailed {
+  color: var(--danger);
+}
+
+.monitorStats {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-5);
+}
+
+@media (max-width: 1279px) {
+  .monitorStats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.statCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.statValue {
+  font-family: var(--font-mono);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.statLabel {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-5);
+}
+
+@media (max-width: 1023px) {
+  .chartsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chartLabel {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: var(--sp-2);
+}
+
+.chartTip {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.chartTipValue {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}

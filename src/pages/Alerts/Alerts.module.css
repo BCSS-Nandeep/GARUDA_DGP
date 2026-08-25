@@ -1,0 +1,34 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.detailEvent {
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.detailMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  padding: var(--sp-3);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+}
+
+.detailActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}

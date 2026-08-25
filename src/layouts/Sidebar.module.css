@@ -1,0 +1,155 @@
+.sidebar {
+  width: var(--sidebar-w-collapsed);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-strong);
+  overflow: hidden;
+  transition: width var(--dur-base) var(--ease);
+}
+
+.sidebar:hover {
+  width: var(--sidebar-w);
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0;
+  overflow-y: auto;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.divider {
+  width: 40px;
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+  transition: width var(--dur-base) var(--ease);
+}
+
+.sidebar:hover .divider {
+  width: 160px;
+}
+
+.navItem {
+  position: relative;
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  color: var(--text-secondary);
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.navItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent-cyan);
+  transform: scaleY(0);
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.navItem:hover {
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.navItem:hover::before {
+  transform: scaleY(1);
+}
+
+.active {
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--accent-cyan);
+}
+
+.active::before {
+  transform: scaleY(1);
+}
+
+.navIcon {
+  flex-shrink: 0;
+  min-width: 24px;
+}
+
+.navLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.sidebar:hover .navLabel {
+  opacity: 1;
+}
+
+.navBadge {
+  background: var(--danger);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 1px 5px;
+  flex-shrink: 0;
+}
+
+/* ---- Tablet / mobile overlay ---- */
+
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(2, 5, 10, 0.66);
+  display: none;
+}
+
+.mobileDrawer {
+  width: var(--sidebar-w);
+  max-width: 82vw;
+  height: 100%;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--accent-cyan);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
+}
+
+/* In the overlay the labels are always visible. */
+.mobileDrawer .navLabel {
+  opacity: 1;
+}
+
+.mobileDrawer .divider {
+  width: 160px;
+}
+
+@media (max-width: 1023px) {
+  .sidebar {
+    display: none;
+  }
+
+  .mobileOverlay {
+    display: block;
+  }
+}

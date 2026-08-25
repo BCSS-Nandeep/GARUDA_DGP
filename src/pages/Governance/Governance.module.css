@@ -1,0 +1,89 @@
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+@media (max-width: 1279px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mainCol,
+.sideCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  min-width: 0;
+}
+
+.complianceList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.complianceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 0;
+}
+
+.complianceLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.detailTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-5);
+}
+
+.detailTimestamp {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.detailRows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.detailRow {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.detailLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.detailValue {
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.systemBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}

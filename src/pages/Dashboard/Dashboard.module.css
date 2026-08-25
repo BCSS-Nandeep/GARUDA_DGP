@@ -1,0 +1,281 @@
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: var(--sp-5);
+}
+
+/* Tablet — two columns */
+@media (max-width: 1023px) {
+  .kpiGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+/* Mobile — single full-width column */
+@media (max-width: 599px) {
+  .kpiGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--sp-4);
+  align-items: start;
+}
+
+@media (max-width: 1279px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mainCol,
+.sideCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+.bottomGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+  margin-top: var(--sp-4);
+  align-items: start;
+}
+
+@media (max-width: 1279px) {
+  .bottomGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.queryTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.queryTable th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.queryTable td {
+  padding: 8px;
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.queryTable tr {
+  cursor: pointer;
+}
+
+.queryTable tr:hover td {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.queryDuration {
+  font-family: var(--font-mono);
+  color: var(--success) !important;
+}
+
+.phaseList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.phaseWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.phaseLabelRow {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.phaseTrack {
+  height: 6px;
+  background: var(--bg-app);
+  border: 1px solid var(--border);
+}
+
+.phaseFill {
+  height: 100%;
+  transition: width var(--dur-slow) var(--ease);
+}
+
+.phaseDetail {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.phaseStats {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+}
+
+.phaseStatCell {
+  flex: 1;
+  padding: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.phaseStatLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.phaseStatValue {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.phaseStatValueSm {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.donutRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.donutChart {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.donutCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.donutTotal {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.donutTotalLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.donutLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.legendRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+}
+
+.legendLabel {
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.legendPct {
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+.ringsRow {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+
+.ringWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.ringLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.serviceList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.serviceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.serviceLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.serviceNote {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-secondary);
+}

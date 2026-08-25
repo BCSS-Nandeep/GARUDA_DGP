@@ -1,0 +1,217 @@
+.backLink {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  cursor: pointer;
+  padding: 0;
+}
+
+.backLink:hover {
+  color: var(--accent-cyan);
+}
+
+.topGrid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-6);
+  align-items: stretch;
+}
+
+@media (max-width: 1279px) {
+  .topGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.identityCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.identityTop {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.identityMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.identityNameRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.identityName {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+}
+
+.aliasList {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.identityMetaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.identityId {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--accent-cyan-strong);
+  font-weight: 600;
+}
+
+.revealBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 3px 9px;
+  color: var(--text-muted);
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.revealBtn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.addressList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--border);
+}
+
+.addressItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.riskLayout {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+.riskFactors {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.riskFactorsLabel {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.factorRow {
+  display: grid;
+  grid-template-columns: 130px 1fr 32px;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.factorLabel {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.factorBarTrack {
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+.factorBarFill {
+  height: 100%;
+  background: var(--danger);
+  border-radius: var(--radius-full);
+}
+
+.factorPoints {
+  font-size: var(--fs-xs);
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.tabsWrap {
+  margin-top: var(--sp-2);
+}
+
+.tabPanel {
+  padding-top: var(--sp-5);
+}
+
+.actionBarCard {
+  margin-top: var(--sp-5);
+}
+
+.actionBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.caseBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.caseActions {
+  display: flex;
+  gap: var(--sp-2);
+  padding-left: var(--sp-2);
+}
+
+.sourceGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
