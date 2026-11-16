@@ -66,6 +66,34 @@
   box-shadow: 0 0 0 3px var(--accent-cyan-dim);
 }
 
+.passwordWrap {
+  position: relative;
+  display: flex;
+}
+
+.passwordWrap input {
+  padding-right: 40px;
+}
+
+.eye {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.eye:hover {
+  color: var(--accent-cyan);
+}
+
 .error {
   width: 100%;
   margin: 0;

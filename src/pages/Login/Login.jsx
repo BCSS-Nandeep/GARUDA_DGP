@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/Button";
 import { useAuth } from "../../context/AuthContext";
@@ -10,6 +11,7 @@ export function Login() {
   const location = useLocation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
   if (user) {
@@ -43,12 +45,22 @@ export function Login() {
         </label>
         <label className={styles.field}>
           <span>Password</span>
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            autoComplete="current-password"
-          />
+          <span className={styles.passwordWrap}>
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              autoComplete="current-password"
+            />
+            <button
+              type="button"
+              className={styles.eye}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              onClick={() => setShowPassword((visible) => !visible)}
+            >
+              {showPassword ? <EyeOff size={16} strokeWidth={2} /> : <Eye size={16} strokeWidth={2} />}
+            </button>
+          </span>
         </label>
         {error && <p className={styles.error}>{error}</p>}
         <Button type="submit" variant="primary" fullWidth>
