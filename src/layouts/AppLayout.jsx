@@ -25,6 +25,7 @@ export function AppLayout() {
   // detail drawer via a route param (e.g. /integrations/:id, /network/:id)
   // doesn't remount the whole page and reset its in-flight data fetch.
   const sectionKey = `/${location.pathname.split("/")[1] || ""}`;
+  const framed = location.pathname.startsWith("/links/");
 
   useKeyboardShortcuts({
     "g d": () => navigate("/dashboard"),
@@ -64,11 +65,12 @@ export function AppLayout() {
       <Ticker />
       <div className={styles.body}>
         <Sidebar mobileOpen={mobileNavOpen} onCloseMobile={() => setMobileNavOpen(false)} />
-        <main className={styles.content} ref={contentRef}>
-          <div className={styles.contentInner}>
+        <main className={[styles.content, framed ? styles.contentFramed : ""].filter(Boolean).join(" ")} ref={contentRef}>
+          <div className={framed ? styles.contentInnerFramed : styles.contentInner}>
             <AnimatePresence mode="wait">
               <motion.div
-                key={sectionKey}
+                key={framed ? location.pathname : sectionKey}
+                className={framed ? styles.frameMotion : undefined}
                 variants={pageVariants}
                 initial="initial"
                 animate="animate"

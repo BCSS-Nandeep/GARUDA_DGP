@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ScrollText } from "lucide-react";
 import { AuthProvider } from "./context/AuthContext";
 import { NotificationProvider } from "./context/NotificationContext";
+import { SidebarLinksProvider } from "./context/SidebarLinksContext";
 import { AppLayout } from "./layouts/AppLayout";
 import { ComingSoon } from "./components/ui/ComingSoon";
 import { Skeleton } from "./components/ui/Skeleton";
@@ -18,6 +19,7 @@ const ProfileDetails = lazyPage(() => import("./pages/ProfileDetails/ProfileDeta
 const NetworkAnalysis = lazyPage(() => import("./pages/NetworkAnalysis/NetworkAnalysis"), "NetworkAnalysis");
 const GeoIntelligence = lazyPage(() => import("./pages/GeoIntelligence/GeoIntelligence"), "GeoIntelligence");
 const Integrations = lazyPage(() => import("./pages/Integrations/Integrations"), "Integrations");
+const LinkView = lazyPage(() => import("./pages/Integrations/LinkView"), "LinkView");
 const AIPipeline = lazyPage(() => import("./pages/AIPipeline/AIPipeline"), "AIPipeline");
 const Governance = lazyPage(() => import("./pages/Governance/Governance"), "Governance");
 const Alerts = lazyPage(() => import("./pages/Alerts/Alerts"), "Alerts");
@@ -37,6 +39,7 @@ function App() {
     <AuthProvider>
       <NotificationProvider>
         <AmbientBackdrop />
+        <SidebarLinksProvider>
         <BrowserRouter>
             <Routes>
               <Route element={<AppLayout />}>
@@ -106,6 +109,14 @@ function App() {
                   }
                 />
                 <Route
+                  path="/links/:id"
+                  element={
+                    <Suspense fallback={<RouteFallback />}>
+                      <LinkView />
+                    </Suspense>
+                  }
+                />
+                <Route
                   path="/ai-pipeline"
                   element={
                     <Suspense fallback={<RouteFallback />}>
@@ -141,6 +152,7 @@ function App() {
               </Route>
             </Routes>
         </BrowserRouter>
+        </SidebarLinksProvider>
       </NotificationProvider>
     </AuthProvider>
   );

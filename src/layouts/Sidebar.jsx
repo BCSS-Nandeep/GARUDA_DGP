@@ -1,46 +1,81 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as Icons from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import styles from "./Sidebar.module.css";
 import { NAV_GROUPS } from "../utils/constants";
-import { useAlertsBadge } from "../hooks/useAlertsBadge";
+import { useSidebarLinks } from "../context/SidebarLinksContext";
 
-function NavItems({ unreadAlerts, onNavigate }) {
+const OPEN_KEY = "garuda.sidebarOpen";
+
+function Item({ item, onNavigate, linkLabel = false }) {
+  const Icon = Icons[item.icon] || Icons.AppWindow;
+  return (
+    <NavLink
+      to={item.path}
+      title={item.label}
+      onClick={onNavigate}
+      className={({ isActive }) => [styles.navItem, isActive ? styles.active : ""].filter(Boolean).join(" ")}
+    >
+      <Icon size={18} strokeWidth={2} className={styles.navIcon} />
+      <span className={[styles.navLabel, linkLabel ? styles.linkLabel : ""].filter(Boolean).join(" ")}>{item.label}</span>
+    </NavLink>
+  );
+}
+
+function NavItems({ links, onNavigate }) {
+  const [primary, footer] = NAV_GROUPS;
   return (
     <nav className={styles.nav}>
-      {NAV_GROUPS.map((group, i) => (
-        <div key={i} className={styles.group}>
-          {i > 0 && <div className={styles.divider} />}
-          {group.items.map((item) => {
-            const Icon = Icons[item.icon];
-            const badgeValue = item.badgeKey === "alerts" ? unreadAlerts : undefined;
-            return (
-              <NavLink
-                key={item.key}
-                to={item.path}
-                onClick={onNavigate}
-                className={({ isActive }) => [styles.navItem, isActive ? styles.active : ""].filter(Boolean).join(" ")}
-              >
-                <Icon size={18} strokeWidth={2} className={styles.navIcon} />
-                <span className={styles.navLabel}>
-                  {item.label}
-                  {badgeValue > 0 && <span className={styles.navBadge}>{badgeValue}</span>}
-                </span>
-              </NavLink>
-            );
-          })}
+      <div className={styles.group}>
+        {primary.items.map((item) => (
+          <Item key={item.key} item={item} onNavigate={onNavigate} />
+        ))}
+      </div>
+
+      {links.length > 0 && (
+        <div className={styles.group}>
+          <div className={styles.divider} />
+          {links.map((link) => (
+            <Item
+              key={link.id}
+              linkLabel
+              onNavigate={onNavigate}
+              item={{ key: link.id, label: link.name, path: `/links/${link.id}`, icon: "AppWindow" }}
+            />
+          ))}
         </div>
-      ))}
+      )}
+
+      <div className={styles.group}>
+        <div className={styles.divider} />
+        {footer.items.map((item) => (
+          <Item key={item.key} item={item} onNavigate={onNavigate} />
+        ))}
+      </div>
     </nav>
   );
 }
 
-export function Sidebar({ mobileOpen, onCloseMobile }) {
-  const unreadAlerts = useAlertsBadge();
-  const location = useLocation();
+function ToggleButton({ open, onClick }) {
+  const Icon = open ? Icons.ChevronsLeft : Icons.ChevronsRight;
+  return (
+    <button type="button" className={styles.toggle} onClick={onClick} aria-label={open ? "Close sidebar" : "Open sidebar"}>
+      <Icon size={18} strokeWidth={2} className={styles.navIcon} />
+      <span className={styles.navLabel}>{open ? "Close" : "Open"}</span>
+    </button>
+  );
+}
 
-  // Close the mobile overlay whenever the route changes.
+export function Sidebar({ mobileOpen, onCloseMobile }) {
+  const { links } = useSidebarLinks();
+  const location = useLocation();
+  const [open, setOpen] = useState(() => localStorage.getItem(OPEN_KEY) !== "0");
+
+  useEffect(() => {
+    localStorage.setItem(OPEN_KEY, open ? "1" : "0");
+  }, [open]);
+
   useEffect(() => {
     onCloseMobile?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,12 +83,11 @@ export function Sidebar({ mobileOpen, onCloseMobile }) {
 
   return (
     <>
-      {/* Desktop/laptop rail — hover to expand. */}
-      <aside className={styles.sidebar}>
-        <NavItems unreadAlerts={unreadAlerts} />
+      <aside className={[styles.sidebar, open ? styles.sidebarOpen : ""].filter(Boolean).join(" ")}>
+        <NavItems links={links} />
+        <ToggleButton open={open} onClick={() => setOpen((value) => !value)} />
       </aside>
 
-      {/* Tablet/mobile overlay drawer. */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -71,7 +105,8 @@ export function Sidebar({ mobileOpen, onCloseMobile }) {
               exit={{ x: "-100%" }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             >
-              <NavItems unreadAlerts={unreadAlerts} onNavigate={onCloseMobile} />
+              <NavItems links={links} onNavigate={onCloseMobile} />
+              <ToggleButton open onClick={onCloseMobile} />
             </motion.aside>
           </motion.div>
         )}
