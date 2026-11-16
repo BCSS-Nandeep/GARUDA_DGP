@@ -5,10 +5,12 @@ import styles from "./LinkView.module.css";
 
 export function LinkView() {
   const { id } = useParams();
-  const { links } = useSidebarLinks();
+  const { links, loading } = useSidebarLinks();
   const link = links.find((item) => item.id === id);
 
   if (!link) {
+    // On a fresh browser the shared list is still loading; don't claim the link is gone yet.
+    if (loading) return <div className={styles.missing}>Loading…</div>;
     return (
       <div className={styles.missing}>
         This sidebar link is no longer available. Add it again from Integrations.

@@ -26,19 +26,16 @@ export const RISK_CATEGORY = {
 export const TOP_NAV_TABS = [
   { key: "dashboard", label: "Dashboard", path: "/dashboard" },
   { key: "integrations", label: "Integrations", path: "/integrations" },
-  { key: "settings", label: "Settings", path: "/settings" },
 ];
 
-// Fixed sidebar items. Named URLs added from Integrations are inserted between these groups.
+// Fixed sidebar items. Named URLs added from Integrations are inserted between these two groups,
+// so added modules appear above Integrations, which sits where Settings used to be.
 export const NAV_GROUPS = [
   {
-    items: [
-      { key: "dashboard", label: "Dashboard", path: "/dashboard", icon: "Hexagon" },
-      { key: "integrations", label: "Integrations", path: "/integrations", icon: "Plug" },
-    ],
+    items: [{ key: "dashboard", label: "Dashboard", path: "/dashboard", icon: "Hexagon" }],
   },
   {
-    items: [{ key: "settings", label: "Settings", path: "/settings", icon: "Settings" }],
+    items: [{ key: "integrations", label: "Integrations", path: "/integrations", icon: "Plug" }],
   },
 ];
 

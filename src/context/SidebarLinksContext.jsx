@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const STORAGE_KEY = "garuda.sidebarLinks";
 
+// The browser copy is only a cache so the sidebar is not empty while the server list loads.
+// The server file is the single source of truth; the browser copy is never pushed back to it.
 function readLinks() {
   try {
     const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
@@ -13,18 +15,34 @@ function readLinks() {
 }
 
 function remember(links) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
+  } catch {
+    // Storage can be blocked or full; the shared server copy still works.
+  }
 }
 
 export function normalizeUrl(value) {
   const trimmed = value.trim();
-  if (!trimmed) return "";
+  if (!trimmed) throw new Error("Enter a URL.");
   const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
-  const parsed = new URL(withProtocol);
+  let parsed;
+  try {
+    parsed = new URL(withProtocol);
+  } catch {
+    throw new Error("Enter a valid http or https URL.");
+  }
   if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
     throw new Error("URL must start with http or https");
   }
   return parsed.href;
+}
+
+async function readServer() {
+  const response = await fetch("/api/links", { cache: "no-store" });
+  if (!response.ok) throw new Error("Could not load the saved links.");
+  const data = await response.json();
+  return Array.isArray(data.links) ? data.links : [];
 }
 
 async function writeServer(links) {
@@ -38,29 +56,38 @@ async function writeServer(links) {
   return Array.isArray(data.links) ? data.links : links;
 }
 
+// Apply a change on top of the latest server list, not this browser's possibly stale copy,
+// so two people editing at the same time do not wipe out each other's links.
+async function change(current, apply) {
+  let latest;
+  try {
+    latest = await readServer();
+  } catch {
+    latest = current;
+  }
+  return writeServer(apply(latest));
+}
+
 const SidebarLinksContext = createContext(null);
 
 export function SidebarLinksProvider({ children }) {
   const [links, setLinks] = useState(readLinks);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
 
     async function load() {
       try {
-        const response = await fetch("/api/links", { cache: "no-store" });
-        if (!response.ok) return;
-        const data = await response.json();
-        const serverLinks = Array.isArray(data.links) ? data.links : [];
-        const known = new Set(serverLinks.map((item) => item.url));
-        const extras = readLinks().filter((item) => item.url && !known.has(item.url));
-        const merged = extras.length ? await writeServer([...serverLinks, ...extras]) : serverLinks;
+        const serverLinks = await readServer();
         if (!cancelled) {
-          setLinks(merged);
-          remember(merged);
+          setLinks(serverLinks);
+          remember(serverLinks);
         }
       } catch {
         // Keep the browser copy if the shared file cannot be reached.
+      } finally {
+        if (!cancelled) setLoading(false);
       }
     }
 
@@ -70,31 +97,37 @@ export function SidebarLinksProvider({ children }) {
     };
   }, []);
 
-  const value = useMemo(
-    () => ({
+  const value = useMemo(() => {
+    function apply(next) {
+      setLinks(next);
+      remember(next);
+      return next;
+    }
+
+    return {
       links,
+      loading,
       async addLink(name, url) {
         const item = { id: crypto.randomUUID(), name: name.trim(), url: normalizeUrl(url) };
-        const next = await writeServer([...links, item]);
-        setLinks(next);
-        remember(next);
+        const next = apply(await change(links, (latest) => [...latest, item]));
         return next.find((entry) => entry.id === item.id) || item;
       },
       async updateLink(id, name, url) {
         const nextItem = { id, name: name.trim(), url: normalizeUrl(url) };
-        const next = await writeServer(links.map((item) => (item.id === id ? nextItem : item)));
-        setLinks(next);
-        remember(next);
+        apply(
+          await change(links, (latest) =>
+            latest.some((item) => item.id === id)
+              ? latest.map((item) => (item.id === id ? nextItem : item))
+              : [...latest, nextItem]
+          )
+        );
         return nextItem;
       },
       async removeLink(id) {
-        const next = await writeServer(links.filter((item) => item.id !== id));
-        setLinks(next);
-        remember(next);
+        apply(await change(links, (latest) => latest.filter((item) => item.id !== id)));
       },
-    }),
-    [links]
-  );
+    };
+  }, [links, loading]);
 
   return <SidebarLinksContext.Provider value={value}>{children}</SidebarLinksContext.Provider>;
 }
