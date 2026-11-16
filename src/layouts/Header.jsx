@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { LogOut, Menu } from "lucide-react";
 import styles from "./Header.module.css";
 import { EagleLogo } from "./EagleLogo";
 import { useAuth } from "../context/AuthContext";
@@ -7,7 +7,8 @@ import { useClock } from "../hooks/useClock";
 import { TOP_NAV_TABS } from "../utils/constants";
 
 export function Header({ onOpenNav }) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const clock = useClock();
 
   return (
@@ -53,6 +54,17 @@ export function Header({ onOpenNav }) {
           </div>
         </div>
         <div className={styles.clock}>{clock}</div>
+        <button
+          type="button"
+          className={styles.logout}
+          aria-label="Sign out"
+          onClick={() => {
+            logout();
+            navigate("/login", { replace: true });
+          }}
+        >
+          <LogOut size={16} strokeWidth={2} />
+        </button>
       </div>
     </header>
   );

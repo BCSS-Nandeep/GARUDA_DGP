@@ -181,6 +181,24 @@
   flex-shrink: 0;
 }
 
+.logout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.logout:hover {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
 /* ---- Responsive ladder ---- */
 
 /* Narrow desktop — drop the brand tagline so all 7 nav tabs still fit. */

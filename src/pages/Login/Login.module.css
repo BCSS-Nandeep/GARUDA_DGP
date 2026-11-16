@@ -1,0 +1,74 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.card {
+  width: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 28px 28px 32px;
+  background: rgba(3, 15, 26, 0.88);
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.12);
+}
+
+.mark {
+  width: min(280px, 100%);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px rgba(0, 212, 255, 0.35));
+}
+
+.sub {
+  margin: -6px 0 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field span {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.field input {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  outline: none;
+}
+
+.field input:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px var(--accent-cyan-dim);
+}
+
+.error {
+  width: 100%;
+  margin: 0;
+  color: var(--danger);
+  font-size: var(--fs-sm);
+}

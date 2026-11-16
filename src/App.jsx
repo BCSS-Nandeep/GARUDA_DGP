@@ -5,6 +5,8 @@ import { AuthProvider } from "./context/AuthContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { SidebarLinksProvider } from "./context/SidebarLinksContext";
 import { AppLayout } from "./layouts/AppLayout";
+import { Login } from "./pages/Login/Login";
+import { RequireAuth } from "./routes/RequireAuth";
 import { ComingSoon } from "./components/ui/ComingSoon";
 import { Skeleton } from "./components/ui/Skeleton";
 import { AmbientBackdrop } from "./components/3d/AmbientBackdrop";
@@ -42,6 +44,8 @@ function App() {
         <SidebarLinksProvider>
         <BrowserRouter>
             <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route element={<RequireAuth />}>
               <Route element={<AppLayout />}>
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 <Route
@@ -149,6 +153,7 @@ function App() {
                   }
                 />
                 <Route path="*" element={<ComingSoon title="Not Found" icon={ScrollText} description="This route does not exist." />} />
+              </Route>
               </Route>
             </Routes>
         </BrowserRouter>
