@@ -1,0 +1,13 @@
+[Unit]
+Description=GARUDA shared sidebar links
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/garuda-links/links_api.py
+Restart=always
+User=ec2-user
+Environment=LINKS_FILE=/var/lib/garuda/links.json
+Environment=LINKS_PORT=8787
+
+[Install]
+WantedBy=multi-user.target

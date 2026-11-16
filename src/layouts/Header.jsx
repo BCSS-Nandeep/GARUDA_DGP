@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut, Menu } from "lucide-react";
 import styles from "./Header.module.css";
-import { EagleLogo } from "./EagleLogo";
 import { useAuth } from "../context/AuthContext";
 import { useClock } from "../hooks/useClock";
 import { TOP_NAV_TABS } from "../utils/constants";
@@ -18,7 +17,7 @@ export function Header({ onOpenNav }) {
       </button>
 
       <div className={styles.brand}>
-        <EagleLogo />
+        <img className={styles.brandMark} src="/garuda-mark.png" alt="" />
         <div>
           <div className={styles.brandName}>GARUDA</div>
           <div className={styles.brandSub}>GRID-BASED ANALYTICS &amp; REAL-TIME UNIFIED DATA ARCHITECTURE</div>

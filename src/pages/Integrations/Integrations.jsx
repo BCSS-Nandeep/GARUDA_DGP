@@ -22,18 +22,18 @@ export function Integrations() {
     setError("");
   }
 
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
     if (!name.trim()) {
       setError("Enter a name for the sidebar.");
       return;
     }
     try {
-      const item = editingId ? updateLink(editingId, name, url) : addLink(name, url);
+      const item = editingId ? await updateLink(editingId, name, url) : await addLink(name, url);
       resetForm();
       navigate(`/links/${item.id}`);
-    } catch {
-      setError("Enter a valid http or https URL.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Enter a valid http or https URL.");
     }
   }
 
@@ -115,7 +115,7 @@ export function Integrations() {
                 aria-label={`Remove ${link.name}`}
                 onClick={() => {
                   if (editingId === link.id) resetForm();
-                  removeLink(link.id);
+                  removeLink(link.id).catch(() => setError("Could not save the link."));
                 }}
               >
                 Remove
