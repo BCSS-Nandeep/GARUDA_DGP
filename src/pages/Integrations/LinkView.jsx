@@ -25,7 +25,13 @@ export function LinkView() {
           Open in new tab
         </a>
       </div>
-      <iframe className={styles.frame} title={link.name} src={link.url} />
+      <iframe
+        className={styles.frame}
+        title={link.name}
+        src={link.url}
+        referrerPolicy="no-referrer"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads"
+      />
     </div>
   );
 }
