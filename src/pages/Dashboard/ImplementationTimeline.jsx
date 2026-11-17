@@ -16,7 +16,7 @@ const PHASES = [
     status: "72% DONE",
     color: "var(--accent-cyan)",
     pct: 72,
-    detail: "CCTNS · ICJS · CDR/IPDR · Unocross · C-DATA · LLM ETL · Months 2–3",
+    detail: "CCTNS · ICJS · CDR/IPDR · Unocross · C-DAT · LLM ETL · Months 2–3",
   },
   {
     label: "Phase 3 — Testing, UAT & Hardening",

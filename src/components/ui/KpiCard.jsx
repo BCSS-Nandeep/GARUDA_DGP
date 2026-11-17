@@ -5,7 +5,7 @@ import styles from "./KpiCard.module.css";
 import { formatCompactCurrency, formatNumber } from "../../utils/formatters";
 import { prefersReducedMotion } from "../../utils/motion";
 
-export function KpiCard({ id, title, value, isCurrency, trend, change, status = "info", sparkline, linkTo, total, index = 0 }) {
+export function KpiCard({ id, title, value, isCurrency, trend, change, deltaLabel, status = "info", sparkline, linkTo, total, index = 0 }) {
   const navigate = useNavigate();
   const cardRef = useRef(null);
   const valueRef = useRef(null);
@@ -95,9 +95,10 @@ export function KpiCard({ id, title, value, isCurrency, trend, change, status = 
         <span ref={valueRef}>{format(value)}</span>
         {total !== undefined && <span className={styles.total}> / {total}</span>}
       </div>
-      {change !== undefined && (
+      {(deltaLabel !== undefined || change !== undefined) && (
         <div className={[styles.delta, trend === "up" ? styles.up : trend === "down" ? styles.down : ""].filter(Boolean).join(" ")}>
-          {trend === "up" ? "▲" : trend === "down" ? "▼" : "●"} {trend !== "flat" ? `${Math.abs(change)}%` : "steady"}
+          {trend === "up" ? "▲" : trend === "down" ? "▼" : "●"}{" "}
+          {deltaLabel ?? (trend !== "flat" ? `${Math.abs(change)}%` : "steady")}
         </div>
       )}
       {sparkline && (

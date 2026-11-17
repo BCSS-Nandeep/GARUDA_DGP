@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
       user,
       hasPermission: (permission) => (user ? roleHasPermission(user.role, permission) : false),
       login(username, password) {
-        const nameOk = username.trim().toLowerCase() === LOGIN_ACCOUNT.username;
+        const nameOk = username.trim().toLowerCase() === LOGIN_ACCOUNT.username.toLowerCase();
         const passwordOk = password === LOGIN_ACCOUNT.password;
         if (!nameOk || !passwordOk) return false;
         localStorage.setItem(SESSION_KEY, "1");

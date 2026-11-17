@@ -20,6 +20,10 @@ const ProfileSearch = lazyPage(() => import("./pages/ProfileSearch/ProfileSearch
 const ProfileDetails = lazyPage(() => import("./pages/ProfileDetails/ProfileDetails"), "ProfileDetails");
 const NetworkAnalysis = lazyPage(() => import("./pages/NetworkAnalysis/NetworkAnalysis"), "NetworkAnalysis");
 const GeoIntelligence = lazyPage(() => import("./pages/GeoIntelligence/GeoIntelligence"), "GeoIntelligence");
+const NationalSourceSystems = lazyPage(
+  () => import("./pages/NationalSourceSystems/NationalSourceSystems"),
+  "NationalSourceSystems"
+);
 const Integrations = lazyPage(() => import("./pages/Integrations/Integrations"), "Integrations");
 const LinkView = lazyPage(() => import("./pages/Integrations/LinkView"), "LinkView");
 const AIPipeline = lazyPage(() => import("./pages/AIPipeline/AIPipeline"), "AIPipeline");
@@ -93,6 +97,22 @@ function App() {
                   element={
                     <Suspense fallback={<RouteFallback />}>
                       <GeoIntelligence />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/national-source-systems"
+                  element={
+                    <Suspense fallback={<RouteFallback />}>
+                      <NationalSourceSystems />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/national-source-systems/:id"
+                  element={
+                    <Suspense fallback={<RouteFallback />}>
+                      <NationalSourceSystems />
                     </Suspense>
                   }
                 />

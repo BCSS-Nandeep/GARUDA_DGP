@@ -30,7 +30,7 @@ export function ModelMonitoring() {
 
   return (
     <Card>
-      <SectionHeader icon={Cpu} title="Model Monitoring" />
+      <SectionHeader icon={Cpu} title="Model Performance" />
       {!data ? (
         <Skeleton height={220} />
       ) : (
@@ -50,7 +50,7 @@ export function ModelMonitoring() {
             </div>
             <div className={styles.statCell}>
               <span className={styles.statValue}>{formatNumber(data.documentsProcessed)}</span>
-              <span className={styles.statLabel}>Documents Processed</span>
+              <span className={styles.statLabel}>Docs Today</span>
             </div>
             <div className={styles.statCell}>
               <span className={styles.statValue}>{data.activeModels}</span>

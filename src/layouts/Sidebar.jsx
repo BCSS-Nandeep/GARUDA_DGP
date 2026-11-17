@@ -5,10 +5,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import styles from "./Sidebar.module.css";
 import { NAV_GROUPS } from "../utils/constants";
 import { useSidebarLinks } from "../context/SidebarLinksContext";
+import { useAlertsBadge } from "../hooks/useAlertsBadge";
 
 const OPEN_KEY = "garuda.sidebarOpen";
 
-function Item({ item, onNavigate, linkLabel = false }) {
+function Item({ item, onNavigate, linkLabel = false, badgeValue }) {
   const Icon = Icons[item.icon] || Icons.AppWindow;
   return (
     <NavLink
@@ -18,13 +19,16 @@ function Item({ item, onNavigate, linkLabel = false }) {
       className={({ isActive }) => [styles.navItem, isActive ? styles.active : ""].filter(Boolean).join(" ")}
     >
       <Icon size={18} strokeWidth={2} className={styles.navIcon} />
-      <span className={[styles.navLabel, linkLabel ? styles.linkLabel : ""].filter(Boolean).join(" ")}>{item.label}</span>
+      <span className={[styles.navLabel, linkLabel ? styles.linkLabel : ""].filter(Boolean).join(" ")}>
+        {item.label}
+        {badgeValue > 0 && <span className={styles.navBadge}>{badgeValue}</span>}
+      </span>
     </NavLink>
   );
 }
 
-function NavItems({ links, onNavigate }) {
-  const [primary, footer] = NAV_GROUPS;
+function NavItems({ links, unreadAlerts, onNavigate }) {
+  const [primary, middle, footer] = NAV_GROUPS;
   return (
     <nav className={styles.nav}>
       <div className={styles.group}>
@@ -49,8 +53,20 @@ function NavItems({ links, onNavigate }) {
 
       <div className={styles.group}>
         <div className={styles.divider} />
-        {footer.items.map((item) => (
+        {middle.items.map((item) => (
           <Item key={item.key} item={item} onNavigate={onNavigate} />
+        ))}
+      </div>
+
+      <div className={styles.group}>
+        <div className={styles.divider} />
+        {footer.items.map((item) => (
+          <Item
+            key={item.key}
+            item={item}
+            onNavigate={onNavigate}
+            badgeValue={item.badgeKey === "alerts" ? unreadAlerts : undefined}
+          />
         ))}
       </div>
     </nav>
@@ -69,6 +85,7 @@ function ToggleButton({ open, onClick }) {
 
 export function Sidebar({ mobileOpen, onCloseMobile }) {
   const { links } = useSidebarLinks();
+  const unreadAlerts = useAlertsBadge();
   const location = useLocation();
   const [open, setOpen] = useState(() => localStorage.getItem(OPEN_KEY) !== "0");
 
@@ -84,7 +101,7 @@ export function Sidebar({ mobileOpen, onCloseMobile }) {
   return (
     <>
       <aside className={[styles.sidebar, open ? styles.sidebarOpen : ""].filter(Boolean).join(" ")}>
-        <NavItems links={links} />
+        <NavItems links={links} unreadAlerts={unreadAlerts} />
         <ToggleButton open={open} onClick={() => setOpen((value) => !value)} />
       </aside>
 
@@ -105,7 +122,7 @@ export function Sidebar({ mobileOpen, onCloseMobile }) {
               exit={{ x: "-100%" }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             >
-              <NavItems links={links} onNavigate={onCloseMobile} />
+              <NavItems links={links} unreadAlerts={unreadAlerts} onNavigate={onCloseMobile} />
               <ToggleButton open onClick={onCloseMobile} />
             </motion.aside>
           </motion.div>

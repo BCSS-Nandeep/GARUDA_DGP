@@ -9,7 +9,7 @@ const ITEMS = [
   { label: "DPDP Act 2023", status: "ONLINE", note: "Compliant" },
   { label: "CDR Legal Framework", status: "ONLINE", note: "Compliant" },
   { label: "Data Sovereignty", status: "ONLINE", note: "On-Premise" },
-  { label: "RBAC — Role Bound", status: "ONLINE", note: "Active" },
+  { label: "RBAC — HRMS Bound", status: "ONLINE", note: "Active" },
   { label: "Victim Data RLS", status: "ONLINE", note: "Enabled" },
   { label: "GARUDA-SQLGuard", status: "ONLINE", note: "Blocking" },
   { label: "Biometric Auth", status: "ONLINE", note: "85 Terminals" },

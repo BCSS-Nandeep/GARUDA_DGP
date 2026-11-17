@@ -20,7 +20,7 @@ export function AlertFeed() {
     <Card>
       <SectionHeader
         icon={BellRing}
-        title="Intelligence Alert Feed"
+        title="Live Alert Feed"
         actions={
           <button
             onClick={() => navigate("/alerts")}

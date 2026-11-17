@@ -6,7 +6,6 @@ import { Card } from "../../components/ui/Card";
 import { SectionHeader } from "../../components/ui/SectionHeader";
 import { Badge } from "../../components/ui/Badge";
 import { DataTable } from "../../components/ui/DataTable";
-import { StatusBadge } from "../../components/ui/StatusBadge";
 import { Dropdown } from "../../components/ui/Dropdown";
 import { DatePicker } from "../../components/ui/DatePicker";
 import { FilterBar } from "../../components/ui/FilterBar";
@@ -45,13 +44,23 @@ export function Governance() {
   }, [events, fromDate]);
 
   const columns = [
-    { key: "timestamp", header: "Timestamp", value: (r) => formatDateTime(r.timestamp), render: (r) => formatDateTime(r.timestamp) },
-    { key: "officer", header: "Officer" },
+    {
+      key: "timestamp",
+      header: "Timestamp",
+      value: (r) => formatDateTime(r.timestamp),
+      render: (r) =>
+        new Date(r.timestamp).toLocaleTimeString("en-GB", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" }),
+    },
+    { key: "hrms", header: "Officer HRMS", value: (r) => r.hrms || r.officer, render: (r) => r.hrms || r.officer },
     { key: "action", header: "Action" },
-    { key: "entity", header: "Entity" },
-    { key: "systemsAccessed", header: "Systems", value: (r) => r.systemsAccessed.join(", "), render: (r) => r.systemsAccessed.join(", ") },
+    {
+      key: "systemsAccessed",
+      header: "Systems Accessed",
+      value: (r) => (r.systemsAccessed.length ? r.systemsAccessed.join(" · ") : "—"),
+      render: (r) => (r.systemsAccessed.length ? r.systemsAccessed.join(" · ") : "—"),
+    },
+    { key: "queryParameters", header: "Query Params" },
     { key: "justification", header: "Justification" },
-    { key: "result", header: "Status", render: (r) => <StatusBadge status={r.result} size="sm" /> },
   ];
 
   return (

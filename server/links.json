@@ -1,14 +1,34 @@
 {
   "links": [
     {
-      "id": "aigpis-aicopwriter",
-      "name": "AIGPIS(AIcopwriter)",
-      "url": "http://aicopwriter.blurasaga.com/"
-    },
-    {
       "id": "blurasaga-india",
       "name": "Blurasaga India",
       "url": "https://delhipolice.blurasaga.com/"
+    },
+    {
+      "id": "596d2e96-fecb-473e-840f-c236aa3cfe90",
+      "name": "Financial intelligence",
+      "url": "https://bluflow.accessgenie.in/login"
+    },
+    {
+      "id": "5a4487bd-5d9f-4523-bc37-8ade69e5ba87",
+      "name": "AI-PIS(AICOPWRITER)",
+      "url": "https://aicopwriter.blurasaga.com/"
+    },
+    {
+      "id": "ff032106-9317-48d9-94be-6c39a422c53a",
+      "name": "GIS",
+      "url": "https://gis.accessgenie.in/"
+    },
+    {
+      "id": "c2b0d2d4-60e8-4eec-ab00-a302866beade",
+      "name": "Traffic AI Analytics",
+      "url": "https://ag.bcss.ai/traffic-analytics/"
+    },
+    {
+      "id": "cc668a64-09fa-4223-a513-6aefbe6d9606",
+      "name": "Memo Generator",
+      "url": "https://memo.blurasaga.com/"
     }
   ]
 }

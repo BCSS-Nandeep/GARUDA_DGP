@@ -7,14 +7,19 @@ import { Badge } from "../../components/ui/Badge";
 import { SkeletonLines } from "../../components/ui/Skeleton";
 import styles from "./Dashboard.module.css";
 import { getAuditEvents } from "../../services/auditService";
-import { formatDateTime } from "../../utils/formatters";
+function formatClock(timestamp) {
+  const date = new Date(timestamp);
+  return [date.getHours(), date.getMinutes(), date.getSeconds()]
+    .map((n) => String(n).padStart(2, "0"))
+    .join(":");
+}
 
 export function RecentQueries() {
   const [events, setEvents] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAuditEvents().then((data) => setEvents(data.slice(0, 5)));
+    getAuditEvents().then((data) => setEvents(data.filter((e) => e.officer !== "SYSTEM").slice(0, 6)));
   }, []);
 
   return (
@@ -47,7 +52,7 @@ export function RecentQueries() {
           <tbody>
             {events.map((e) => (
               <tr key={e.id} onClick={() => navigate("/governance")}>
-                <td className="mono">{formatDateTime(e.timestamp)}</td>
+                <td className="mono">{formatClock(e.timestamp)}</td>
                 <td>{e.officer}</td>
                 <td className="mono">{e.queryParameters}</td>
                 <td>
@@ -55,7 +60,9 @@ export function RecentQueries() {
                     {e.systemsAccessed.length} DBs
                   </Badge>
                 </td>
-                <td className={styles.queryDuration}>{(e.durationMs / 1000).toFixed(0)}s</td>
+                <td className={styles.queryDuration} style={{ color: e.durationMs >= 80000 ? "var(--warning)" : "var(--success)" }}>
+                  {(e.durationMs / 1000).toFixed(0)}s
+                </td>
               </tr>
             ))}
           </tbody>

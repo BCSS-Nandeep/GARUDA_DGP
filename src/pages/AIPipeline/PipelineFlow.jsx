@@ -17,7 +17,7 @@ export function PipelineFlow() {
 
   return (
     <Card>
-      <SectionHeader icon={Workflow} title="Processing Pipeline" description="Document ingestion → knowledge graph" />
+      <SectionHeader icon={Workflow} title="LLM Extraction Pipeline" description="Document ingestion → knowledge graph" />
       {!stages ? (
         <Skeleton height={140} radius={10} />
       ) : (

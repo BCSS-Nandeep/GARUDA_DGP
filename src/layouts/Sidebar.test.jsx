@@ -30,6 +30,19 @@ function renderSidebar() {
   );
 }
 
+const FIXED_NAV = [
+  "Dashboard",
+  "Profile Search",
+  "Network Analysis",
+  "Geo Intelligence",
+  "National Source Systems",
+  "Integrations",
+  "AI Pipeline",
+  "Governance",
+  "Alerts",
+  "Settings",
+];
+
 describe("Sidebar", () => {
   beforeEach(() => {
     vi.stubGlobal("localStorage", memoryStorage());
@@ -43,23 +56,36 @@ describe("Sidebar", () => {
     vi.unstubAllGlobals();
   });
 
-  it("shows Dashboard first, added modules in the middle and Integrations last", async () => {
+  it("shows fixed HTML tabs with added modules between primary and integrations groups", async () => {
     renderSidebar();
     await screen.findByText("Alpha Module");
-    const labels = screen.getAllByRole("link").map((link) => link.textContent.trim());
-    expect(labels).toEqual(["Dashboard", "Alpha Module", "Beta Module", "Integrations"]);
+    const labels = screen.getAllByRole("link").map((link) => link.textContent.trim().replace(/\d+$/, ""));
+    expect(labels).toEqual([
+      "Dashboard",
+      "Profile Search",
+      "Network Analysis",
+      "Geo Intelligence",
+      "Alpha Module",
+      "Beta Module",
+      "National Source Systems",
+      "Integrations",
+      "AI Pipeline",
+      "Governance",
+      "Alerts",
+      "Settings",
+    ]);
   });
 
-  it("has no Settings entry", async () => {
+  it("keeps Integrations entry for the link manager", async () => {
     renderSidebar();
     await screen.findByText("Alpha Module");
-    expect(screen.queryByText("Settings")).not.toBeInTheDocument();
+    expect(screen.getByText("Integrations")).toBeInTheDocument();
   });
 
-  it("keeps Integrations below Dashboard when there are no added modules", async () => {
+  it("keeps fixed nav order when there are no added modules", async () => {
     vi.stubGlobal("fetch", vi.fn(() => Promise.resolve({ ok: true, json: () => Promise.resolve({ links: [] }) })));
     renderSidebar();
-    const labels = screen.getAllByRole("link").map((link) => link.textContent.trim());
-    expect(labels).toEqual(["Dashboard", "Integrations"]);
+    const labels = screen.getAllByRole("link").map((link) => link.textContent.trim().replace(/\d+$/, ""));
+    expect(labels).toEqual(FIXED_NAV);
   });
 });

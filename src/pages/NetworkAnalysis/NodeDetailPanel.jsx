@@ -35,10 +35,34 @@ export function NodeDetailPanel({ node: incoming, graph, onClose }) {
         ) : undefined
       }
     >
-      <div style={{ display: "flex", gap: "var(--sp-2)", marginBottom: "var(--sp-5)" }}>
+      <div style={{ display: "flex", gap: "var(--sp-2)", marginBottom: "var(--sp-5)", flexWrap: "wrap" }}>
         <Badge tone="cyan">{node.type}</Badge>
+        {node.role && <Badge tone={node.role === "KINGPIN" ? "danger" : "warning"}>{node.role}</Badge>}
         {node.risk && <Badge tone={RISK_TONE[node.risk] || "neutral"}>{node.risk} RISK</Badge>}
       </div>
+
+      {(node.firs != null || node.status || node.links) && (
+        <div style={{ display: "grid", gap: "var(--sp-3)", marginBottom: "var(--sp-5)", fontSize: "var(--fs-sm)" }}>
+          {node.firs != null && (
+            <div>
+              <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase" }}>FIRs</div>
+              <div>{node.firs} registered</div>
+            </div>
+          )}
+          {node.status && (
+            <div>
+              <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase" }}>Status</div>
+              <div style={{ color: "var(--accent-cyan)" }}>{node.status}</div>
+            </div>
+          )}
+          {node.links && (
+            <div>
+              <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase" }}>Network Links</div>
+              <div>{node.links}</div>
+            </div>
+          )}
+        </div>
+      )}
 
       <div style={{ fontSize: "var(--fs-xs)", color: "var(--text-muted)", fontWeight: 600, marginBottom: "var(--sp-2)" }}>
         Relationships ({relationships.length})
