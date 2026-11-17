@@ -4,9 +4,18 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 sudo mkdir -p /var/lib/garuda /opt/garuda-links
 sudo cp "$ROOT/server/links_api.py" /opt/garuda-links/links_api.py
-if [ ! -f /var/lib/garuda/links.json ]; then
-  sudo cp "$ROOT/server/links.json" /var/lib/garuda/links.json
+
+# /var/lib/garuda/links.json is the live source of truth. Seed it once from the repo,
+# then never overwrite on reinstall/redeploy so Integrations edits stay persisted.
+LIVE_LINKS=/var/lib/garuda/links.json
+if [ ! -f "$LIVE_LINKS" ]; then
+  sudo cp "$ROOT/server/links.json" "$LIVE_LINKS"
+  echo "Seeded $LIVE_LINKS from repo"
+else
+  sudo cp "$LIVE_LINKS" "$LIVE_LINKS.bak.$(date +%Y%m%d%H%M%S)"
+  echo "Preserved existing $LIVE_LINKS (backed up)"
 fi
+
 sudo chown -R ec2-user:ec2-user /var/lib/garuda /opt/garuda-links
 sudo cp "$ROOT/server/garuda-links.service" /etc/systemd/system/garuda-links.service
 sudo systemctl daemon-reload
