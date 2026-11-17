@@ -20,6 +20,7 @@ const ProfileSearch = lazyPage(() => import("./pages/ProfileSearch/ProfileSearch
 const ProfileDetails = lazyPage(() => import("./pages/ProfileDetails/ProfileDetails"), "ProfileDetails");
 const NetworkAnalysis = lazyPage(() => import("./pages/NetworkAnalysis/NetworkAnalysis"), "NetworkAnalysis");
 const GeoIntelligence = lazyPage(() => import("./pages/GeoIntelligence/GeoIntelligence"), "GeoIntelligence");
+const LiveSystems = lazyPage(() => import("./pages/LiveSystems/LiveSystems"), "LiveSystems");
 const NationalSourceSystems = lazyPage(
   () => import("./pages/NationalSourceSystems/NationalSourceSystems"),
   "NationalSourceSystems"
@@ -97,6 +98,14 @@ function App() {
                   element={
                     <Suspense fallback={<RouteFallback />}>
                       <GeoIntelligence />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/live-systems"
+                  element={
+                    <Suspense fallback={<RouteFallback />}>
+                      <LiveSystems />
                     </Suspense>
                   }
                 />

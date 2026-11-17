@@ -31,13 +31,13 @@ export const TOP_NAV_TABS = [
   { key: "profile-search", label: "Profile Search", path: "/profile-search" },
   { key: "network", label: "Network Analysis", path: "/network" },
   { key: "geo", label: "Geo Intelligence", path: "/geo" },
+  { key: "live-systems", label: "Live Systems", path: "/live-systems" },
   { key: "national-source-systems", label: "National Source Systems", path: "/national-source-systems" },
   { key: "ai-pipeline", label: "AI Pipeline", path: "/ai-pipeline" },
   { key: "governance", label: "Governance", path: "/governance" },
 ];
 
-// Sidebar rail — HTML groups, plus Integrations (link manager), Alerts, Settings.
-// Named URLs from Integrations are inserted between the first and second groups.
+// Sidebar rail — Live Systems hosts Integration-added modules as a dropdown.
 export const NAV_GROUPS = [
   {
     items: [
@@ -45,6 +45,7 @@ export const NAV_GROUPS = [
       { key: "profile-search", label: "Profile Search", path: "/profile-search", icon: "Search" },
       { key: "network", label: "Network Analysis", path: "/network", icon: "Share2" },
       { key: "geo", label: "Geo Intelligence", path: "/geo", icon: "MapPinned" },
+      { key: "live-systems", label: "Live Systems", path: "/live-systems", icon: "RadioTower" },
     ],
   },
   {

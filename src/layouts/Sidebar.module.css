@@ -145,6 +145,83 @@
   flex-shrink: 0;
 }
 
+.liveGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.liveParent {
+  padding-right: 8px;
+}
+
+.liveParentLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.liveToggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+.sidebarOpen .liveToggle,
+.mobileDrawer .liveToggle {
+  opacity: 1;
+}
+
+.liveToggle:hover {
+  color: var(--accent-cyan);
+}
+
+.liveChildren {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.liveChild {
+  padding-left: 28px;
+}
+
+.sidebarOpen .liveChild,
+.mobileDrawer .liveChild {
+  padding-left: 36px;
+}
+
+.liveEmpty {
+  width: 100%;
+  padding: 10px 20px 10px 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebarOpen .liveEmpty,
+.mobileDrawer .liveEmpty {
+  padding-left: 36px;
+}
+
 /* ---- Tablet / mobile overlay ---- */
 
 .mobileOverlay {

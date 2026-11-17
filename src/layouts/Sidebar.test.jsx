@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Sidebar } from "./Sidebar";
@@ -10,8 +10,8 @@ const SERVER_LINKS = [
 ];
 
 // This jsdom setup does not provide localStorage, so give the components a simple in-memory one.
-function memoryStorage() {
-  const data = new Map();
+function memoryStorage(seed = {}) {
+  const data = new Map(Object.entries(seed));
   return {
     getItem: (key) => (data.has(key) ? data.get(key) : null),
     setItem: (key, value) => data.set(key, String(value)),
@@ -20,9 +20,10 @@ function memoryStorage() {
   };
 }
 
-function renderSidebar() {
+function renderSidebar({ path = "/", storage = {} } = {}) {
+  vi.stubGlobal("localStorage", memoryStorage(storage));
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[path]}>
       <SidebarLinksProvider>
         <Sidebar />
       </SidebarLinksProvider>
@@ -30,11 +31,12 @@ function renderSidebar() {
   );
 }
 
-const FIXED_NAV = [
+const FIXED_TOP_LEVEL = [
   "Dashboard",
   "Profile Search",
   "Network Analysis",
   "Geo Intelligence",
+  "Live Systems",
   "National Source Systems",
   "Integrations",
   "AI Pipeline",
@@ -45,7 +47,6 @@ const FIXED_NAV = [
 
 describe("Sidebar", () => {
   beforeEach(() => {
-    vi.stubGlobal("localStorage", memoryStorage());
     vi.stubGlobal(
       "fetch",
       vi.fn(() => Promise.resolve({ ok: true, json: () => Promise.resolve({ links: SERVER_LINKS }) }))
@@ -56,15 +57,17 @@ describe("Sidebar", () => {
     vi.unstubAllGlobals();
   });
 
-  it("shows fixed HTML tabs with added modules between primary and integrations groups", async () => {
-    renderSidebar();
+  it("nests Integration modules under Live Systems dropdown", async () => {
+    renderSidebar({ storage: { "garuda.liveSystemsOpen": "1", "garuda.sidebarOpen": "1" } });
     await screen.findByText("Alpha Module");
+
     const labels = screen.getAllByRole("link").map((link) => link.textContent.trim().replace(/\d+$/, ""));
     expect(labels).toEqual([
       "Dashboard",
       "Profile Search",
       "Network Analysis",
       "Geo Intelligence",
+      "Live Systems",
       "Alpha Module",
       "Beta Module",
       "National Source Systems",
@@ -76,16 +79,26 @@ describe("Sidebar", () => {
     ]);
   });
 
+  it("expands Live Systems when toggling the chevron", async () => {
+    renderSidebar({ storage: { "garuda.sidebarOpen": "1" } });
+    await screen.findByText("Live Systems");
+    expect(screen.queryByText("Alpha Module")).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByLabelText("Expand Live Systems"));
+    expect(await screen.findByText("Alpha Module")).toBeInTheDocument();
+    expect(screen.getByText("Beta Module")).toBeInTheDocument();
+  });
+
   it("keeps Integrations entry for the link manager", async () => {
     renderSidebar();
-    await screen.findByText("Alpha Module");
+    await screen.findByText("Live Systems");
     expect(screen.getByText("Integrations")).toBeInTheDocument();
   });
 
-  it("keeps fixed nav order when there are no added modules", async () => {
+  it("keeps fixed top-level nav when there are no added modules", async () => {
     vi.stubGlobal("fetch", vi.fn(() => Promise.resolve({ ok: true, json: () => Promise.resolve({ links: [] }) })));
     renderSidebar();
     const labels = screen.getAllByRole("link").map((link) => link.textContent.trim().replace(/\d+$/, ""));
-    expect(labels).toEqual(FIXED_NAV);
+    expect(labels).toEqual(FIXED_TOP_LEVEL);
   });
 });

@@ -8,6 +8,7 @@ import { useSidebarLinks } from "../context/SidebarLinksContext";
 import { useAlertsBadge } from "../hooks/useAlertsBadge";
 
 const OPEN_KEY = "garuda.sidebarOpen";
+const LIVE_OPEN_KEY = "garuda.liveSystemsOpen";
 
 function Item({ item, onNavigate, linkLabel = false, badgeValue }) {
   const Icon = Icons[item.icon] || Icons.AppWindow;
@@ -27,29 +28,84 @@ function Item({ item, onNavigate, linkLabel = false, badgeValue }) {
   );
 }
 
+function LiveSystemsMenu({ links, onNavigate }) {
+  const location = useLocation();
+  const onLiveRoute = location.pathname.startsWith("/links/") || location.pathname === "/live-systems";
+  const [manualOpen, setManualOpen] = useState(() => localStorage.getItem(LIVE_OPEN_KEY) === "1");
+  const open = onLiveRoute || manualOpen;
+
+  useEffect(() => {
+    localStorage.setItem(LIVE_OPEN_KEY, manualOpen ? "1" : "0");
+  }, [manualOpen]);
+
+  const Chevron = open ? Icons.ChevronDown : Icons.ChevronRight;
+  const parentActive = onLiveRoute;
+
+  return (
+    <div className={styles.liveGroup}>
+      <div className={[styles.navItem, styles.liveParent, parentActive ? styles.active : ""].filter(Boolean).join(" ")}>
+        <NavLink
+          to="/live-systems"
+          title="Live Systems"
+          onClick={onNavigate}
+          className={styles.liveParentLink}
+        >
+          <Icons.RadioTower size={18} strokeWidth={2} className={styles.navIcon} />
+          <span className={styles.navLabel}>Live Systems</span>
+        </NavLink>
+        <button
+          type="button"
+          className={styles.liveToggle}
+          aria-label={open ? "Collapse Live Systems" : "Expand Live Systems"}
+          aria-expanded={open}
+          onClick={() => setManualOpen((value) => !value)}
+        >
+          <Chevron size={14} strokeWidth={2} />
+        </button>
+      </div>
+
+      {open && (
+        <div className={styles.liveChildren}>
+          {links.length === 0 ? (
+            <div className={styles.liveEmpty} title="Add systems from Integrations">
+              <Icons.AppWindow size={16} strokeWidth={2} className={styles.navIcon} />
+              <span className={[styles.navLabel, styles.linkLabel].join(" ")}>No systems yet</span>
+            </div>
+          ) : (
+            links.map((link) => (
+              <NavLink
+                key={link.id}
+                to={`/links/${link.id}`}
+                title={link.name}
+                onClick={onNavigate}
+                className={({ isActive }) =>
+                  [styles.navItem, styles.liveChild, isActive ? styles.active : ""].filter(Boolean).join(" ")
+                }
+              >
+                <Icons.AppWindow size={16} strokeWidth={2} className={styles.navIcon} />
+                <span className={[styles.navLabel, styles.linkLabel].join(" ")}>{link.name}</span>
+              </NavLink>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function NavItems({ links, unreadAlerts, onNavigate }) {
   const [primary, middle, footer] = NAV_GROUPS;
   return (
     <nav className={styles.nav}>
       <div className={styles.group}>
-        {primary.items.map((item) => (
-          <Item key={item.key} item={item} onNavigate={onNavigate} />
-        ))}
+        {primary.items.map((item) =>
+          item.key === "live-systems" ? (
+            <LiveSystemsMenu key={item.key} links={links} onNavigate={onNavigate} />
+          ) : (
+            <Item key={item.key} item={item} onNavigate={onNavigate} />
+          )
+        )}
       </div>
-
-      {links.length > 0 && (
-        <div className={styles.group}>
-          <div className={styles.divider} />
-          {links.map((link) => (
-            <Item
-              key={link.id}
-              linkLabel
-              onNavigate={onNavigate}
-              item={{ key: link.id, label: link.name, path: `/links/${link.id}`, icon: "AppWindow" }}
-            />
-          ))}
-        </div>
-      )}
 
       <div className={styles.group}>
         <div className={styles.divider} />
