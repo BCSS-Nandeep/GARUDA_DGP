@@ -32,7 +32,12 @@ function LiveSystemsMenu({ links, onNavigate }) {
   const location = useLocation();
   const onLiveRoute = location.pathname.startsWith("/links/") || location.pathname === "/live-systems";
   const [manualOpen, setManualOpen] = useState(() => localStorage.getItem(LIVE_OPEN_KEY) === "1");
-  const open = onLiveRoute || manualOpen;
+  const [forceClosed, setForceClosed] = useState(false);
+  const open = forceClosed ? false : onLiveRoute || manualOpen;
+
+  useEffect(() => {
+    setForceClosed(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     localStorage.setItem(LIVE_OPEN_KEY, manualOpen ? "1" : "0");
@@ -58,7 +63,15 @@ function LiveSystemsMenu({ links, onNavigate }) {
           className={styles.liveToggle}
           aria-label={open ? "Collapse Live Systems" : "Expand Live Systems"}
           aria-expanded={open}
-          onClick={() => setManualOpen((value) => !value)}
+          onClick={() => {
+            if (open) {
+              setForceClosed(true);
+              setManualOpen(false);
+            } else {
+              setForceClosed(false);
+              setManualOpen(true);
+            }
+          }}
         >
           <Chevron size={14} strokeWidth={2} />
         </button>
