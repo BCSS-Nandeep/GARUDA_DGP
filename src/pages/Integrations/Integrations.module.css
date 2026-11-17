@@ -104,6 +104,26 @@
   flex-shrink: 0;
 }
 
+.configForm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.configField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.configField:nth-child(1),
+.configField:nth-child(3),
+.configField:nth-child(9) {
+  grid-column: 1 / -1;
+}
+
 .detailTop {
   display: flex;
   align-items: center;

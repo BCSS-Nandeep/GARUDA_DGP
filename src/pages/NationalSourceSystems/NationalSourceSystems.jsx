@@ -53,6 +53,11 @@ export function NationalSourceSystems() {
     navigate("/national-source-systems");
   }
 
+  function handleUpdated(updated) {
+    setRows((prev) => prev.map((row) => (row.id === updated.id ? { ...row, ...updated } : row)));
+    setSelected((prev) => (prev?.id === updated.id ? { ...prev, ...updated } : prev));
+  }
+
   return (
     <div>
       <PageHeader
@@ -125,7 +130,7 @@ export function NationalSourceSystems() {
         </div>
       </Card>
 
-      <IntegrationDetail integration={selected} onClose={closeDetail} />
+      <IntegrationDetail integration={selected} onClose={closeDetail} onUpdated={handleUpdated} />
     </div>
   );
 }
